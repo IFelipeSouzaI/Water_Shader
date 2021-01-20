@@ -1,0 +1,318 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/object_particle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://water_preset.tres" type="Texture" id=2]
+[ext_resource path="res://main.gd" type="Script" id=3]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D color_ramp;
+
+uniform bool blobby = false;
+
+void fragment() {
+	
+	if(blobby) {
+		float threshold = texture(TEXTURE, UV).r*2.0 - 1.0;
+		if(threshold >= 0.0)
+			COLOR = texture(color_ramp, vec2(threshold, 0));
+		else
+			COLOR = vec4(0.0);
+	} else {
+		COLOR = texture(TEXTURE, UV);
+		COLOR.rgb = texture(color_ramp, vec2(COLOR.r, 0)).rgb;
+		COLOR.a = 1.0 - step(COLOR.a, 0.5);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/blobby = true
+shader_param/color_ramp = ExtResource( 2 )
+
+[sub_resource type="ViewportTexture" id=3]
+viewport_path = NodePath("View")
+
+[node name="main" type="Node2D"]
+script = ExtResource( 3 )
+num_particles = 79
+
+[node name="View" type="Viewport" parent="."]
+size = Vector2( 540, 960 )
+transparent_bg = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="FluidDisplay" type="Sprite" parent="."]
+material = SubResource( 2 )
+texture = SubResource( 3 )
+centered = false
+
+[node name="object_wall" type="StaticBody2D" parent="."]
+
+[node name="polygon" type="Polygon2D" parent="object_wall"]
+polygon = PoolVector2Array( 220, 220, 220, 130, 330, 130, 330, 220, 350, 220, 350, 110, 200, 110, 200, 220 )
+
+[node name="shape" type="CollisionPolygon2D" parent="object_wall"]
+polygon = PoolVector2Array( 220, 220, 220, 130, 330, 130, 330, 220, 350, 220, 350, 110, 200, 110, 200, 220 )
+
+[node name="body" type="StaticBody2D" parent="."]
+
+[node name="shape" type="CollisionPolygon2D" parent="body"]
+position = Vector2( 0.707092, 0 )
+polygon = PoolVector2Array( -0.707092, 960, 539.293, 960, 539.293, 0, 479.293, 800, 319.293, 830, 319.293, 940, 239.293, 940, 239.293, 830, 79.2929, 800, -0.707092, 0 )
+
+[node name="polygon" type="Polygon2D" parent="body"]
+polygon = PoolVector2Array( 240, 830, 240, 940, 320, 940, 320, 830, 480, 800, 540, 0, 540, 960, 0, 960, 0, 0, 80, 800 )
+
+[node name="body2" type="StaticBody2D" parent="."]
+
+[node name="shape" type="CollisionPolygon2D" parent="body2"]
+position = Vector2( -100, 400 )
+polygon = PoolVector2Array( 260, 350, 500, 350, 340, 270, 260, 190 )
+
+[node name="Polygon2D" type="Polygon2D" parent="body2"]
+polygon = PoolVector2Array( 160, 590, 160, 750, 400, 750, 240, 670 )
+
+[node name="particles" type="Node2D" parent="."]
+
+[node name="object_particle0" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 140 )
+
+[node name="object_particle1" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 140 )
+
+[node name="object_particle2" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 140 )
+
+[node name="object_particle3" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 140 )
+
+[node name="object_particle4" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 140 )
+
+[node name="object_particle5" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 150 )
+
+[node name="object_particle6" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 150 )
+
+[node name="object_particle7" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 150 )
+
+[node name="object_particle8" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 150 )
+
+[node name="object_particle9" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 150 )
+
+[node name="object_particle10" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 160 )
+
+[node name="object_particle11" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 160 )
+
+[node name="object_particle12" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 160 )
+
+[node name="object_particle13" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 160 )
+
+[node name="object_particle14" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 160 )
+
+[node name="object_particle15" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 170 )
+
+[node name="object_particle16" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 170 )
+
+[node name="object_particle17" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 170 )
+
+[node name="object_particle18" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 170 )
+
+[node name="object_particle19" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 170 )
+
+[node name="object_particle20" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 140 )
+
+[node name="object_particle21" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 140 )
+
+[node name="object_particle22" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 140 )
+
+[node name="object_particle23" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 140 )
+
+[node name="object_particle24" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 140 )
+
+[node name="object_particle25" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 150 )
+
+[node name="object_particle26" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 150 )
+
+[node name="object_particle27" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 150 )
+
+[node name="object_particle28" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 150 )
+
+[node name="object_particle29" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 150 )
+
+[node name="object_particle30" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 160 )
+
+[node name="object_particle31" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 160 )
+
+[node name="object_particle32" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 160 )
+
+[node name="object_particle33" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 160 )
+
+[node name="object_particle34" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 160 )
+
+[node name="object_particle35" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 170 )
+
+[node name="object_particle36" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 170 )
+
+[node name="object_particle37" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 170 )
+
+[node name="object_particle38" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 170 )
+
+[node name="object_particle39" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 170 )
+
+[node name="object_particle40" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 180 )
+
+[node name="object_particle41" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 180 )
+
+[node name="object_particle42" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 180 )
+
+[node name="object_particle43" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 180 )
+
+[node name="object_particle44" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 180 )
+
+[node name="object_particle45" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 190 )
+
+[node name="object_particle46" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 190 )
+
+[node name="object_particle47" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 190 )
+
+[node name="object_particle48" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 190 )
+
+[node name="object_particle49" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 190 )
+
+[node name="object_particle50" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 200 )
+
+[node name="object_particle51" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 200 )
+
+[node name="object_particle52" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 200 )
+
+[node name="object_particle53" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 200 )
+
+[node name="object_particle54" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 200 )
+
+[node name="object_particle55" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 230, 210 )
+
+[node name="object_particle56" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 240, 210 )
+
+[node name="object_particle57" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 250, 210 )
+
+[node name="object_particle58" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 260, 210 )
+
+[node name="object_particle59" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 270, 210 )
+
+[node name="object_particle60" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 180 )
+
+[node name="object_particle61" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 180 )
+
+[node name="object_particle62" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 180 )
+
+[node name="object_particle63" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 180 )
+
+[node name="object_particle64" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 180 )
+
+[node name="object_particle65" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 190 )
+
+[node name="object_particle66" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 190 )
+
+[node name="object_particle67" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 190 )
+
+[node name="object_particle68" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 190 )
+
+[node name="object_particle69" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 190 )
+
+[node name="object_particle70" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 200 )
+
+[node name="object_particle71" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 200 )
+
+[node name="object_particle72" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 200 )
+
+[node name="object_particle73" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 200 )
+
+[node name="object_particle74" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 200 )
+
+[node name="object_particle75" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 280, 210 )
+
+[node name="object_particle76" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 290, 210 )
+
+[node name="object_particle77" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 300, 210 )
+
+[node name="object_particle78" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 310, 210 )
+
+[node name="object_particle79" parent="particles" instance=ExtResource( 1 )]
+position = Vector2( 320, 210 )
