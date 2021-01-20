@@ -1,2 +1,2 @@
 # Water_Shader
-Linkedin Ability Showcase - Hyper Casual 2D with a Water Particles Shader
+Linkedin Ability Showcase - 2D Particles Shader
